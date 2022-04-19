@@ -80,7 +80,10 @@
                     <div id="sidebar-menu">
                         <ul>
                             <li>
-                                <a href="index.html" class="waves-effect"><i class="md md-home"></i><span> Dashboard </span></a>
+                                <a href="dashboard" class="waves-effect"><i class="md md-home"></i><span> Dashboard </span></a>
+                            </li>
+                            <li>
+                                <a href="organization" class="waves-effect"><i class="fa fa-building" aria-hidden="true"></i><span> Organizations </span></a>
                             </li>
 
                         <ul>

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
+use App\Http\Controllers\organizationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +29,7 @@ Route::post("/register-user",[userController::class,'registeruser'])->name('regi
 Route::post("login-user",[userController::class,'loginuser'])->name('login-user');
 Route::get("/dashboard",[userController::class,'dashboard']);
 Route::get("/signout",[userController::class,'signout']);
-
+Route::get("/organization",[userController::class,'organizationShow']);
+Route::get("/createorganization",[organizationController::class,'organization']);
+Route::post("/Add-organization",[organizationController::class,'create'])->name('Add-organization');
+Route::get("vieworganization/{id}",[organizationController::class,'viewUser'])->name('view');

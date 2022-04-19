@@ -6,6 +6,8 @@ use Session;
 
 
 use App\Models\Member;
+use App\Models\Organisation;
+
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -79,5 +81,17 @@ class userController extends Controller
            return redirect('userlogin');
         }
         
+    }
+    function organizationShow()
+    {
+       $data=Organisation::paginate(5);
+       $detail=array();
+         if(Session::has('loginId'))
+        {
+          $detail=Member::where('id','=',Session::get('loginId'))->first();
+
+        }
+       
+        return view('organization',compact('detail'),['organisations'=>$data]);
     }
 }
