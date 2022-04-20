@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>Ping || Organizations</title>
+        <title>Ping || Edit Organization</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -60,7 +60,6 @@
 
                             <p class="text-muted m-0"></p>
                         </div>
-
                        
                     </div>
                 </nav>
@@ -107,8 +106,8 @@
                     <div class="clearfix"></div>
                 </div>
             </div>
+    
             <!-- Left Sidebar End --> 
-
 
             <!-- ============================================================== -->
             <!-- Start right Content here -->
@@ -121,100 +120,84 @@
                         <!-- Page-Title -->
                         <div class="row">
                             <div class="col-sm-12">
-                                <h4 class="pull-left page-title">Organizations</h4>
-                                <ol class="breadcrumb pull-right">
-                                    <li><a href="dashboard">{{$detail->username}}</a></li>
-                                    <li><a href="dashboard">Dashboard</a></li>
-                                    <li class="active">Organizations</li>
-                                </ol>
+                                <h4 class="pull-left page-title">Update Organization</h4>
+                               
                             </div>
                         </div>
 
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-6" >
-                                        <div class="m-b-30" >
-                                            <a href="createorganization" id="addToTable" class="btn btn-success waves-effect waves-light">Create Organization <i class="mdi mdi-plus-circle-outline"></i></a>
-                                            @if(Session::has('success'))
-                <h4 style="color:green">{{Session::get('success')}}</h4>
-                @endif
-                @if(Session::has('fail'))
-              <h4 style="color:red">{{Session::get('fail')}}</h4>
-                @endif
-                                        </div>
-                                    </div>
-                                </div>
-    
-                                <table class="table table-striped add-edit-table dt-responsive nowrap" id="datatable-editable" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                    <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>City</th>
-                                        <th>Phone Number</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($organisations as $organisation)
-                                    <tr class="gradeX">
-                                        <td>{{$organisation['name']}}</td>
-                                        <td>{{$organisation['city']}}
-                                        </td>
-                                        <td>{{$organisation['phonenumber']}}</td>
-                                        <td class="actions">
-                                           &nbsp;&nbsp;&nbsp; <a href="{{ route('organisation.show',['id' => $organisation->id]) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Show"><i class="fa fa-eye"></i></a>
-                                        </td>
-                                    </tr>
-                                    
-                                    @endforeach
-                                    
-                                    </tbody>
-                                </table>
-                             
-                                   
-                                        {{$organisations->links()}}
-                                    
-                                
-                                    
 
-                                
-</div>
- 
-                        
+                        <div class="row">
+                            <!-- Basic example -->
+                            <div class="col-xl-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                    <form action="{{route('update-organization')}}" method="POST">
+                                        <table style="width:100%">
+                                        <input type="hidden" name="id" value="{{$data->id}}"/>
+                @csrf
+                                           <tr><td> <div class="form-group">
+                                                <label for="exampleInputEmail1">Name </label>
+                                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" value="{{$data->name}}" style="width:90%">
+                                                
+                                                <span style="color:red">@error('name'){{$message}} @enderror</span>
+                                            </div></td>
+                                            <td><div class="form-group">
+                                                <label for="exampleInputPassword1">Email</label>
+                                                <input type="text" class="form-control" id="email" name="email" placeholder="email" value="{{$data->email}}" style="width:90%">
+                                                <span style="color:red">@error('email'){{$message}} @enderror</span>
+                                            </div></td></tr>
+                                            <tr>
+                                                <td><div class="form-group">
+                                                <label for="exampleInputPassword1">Phone</label>
+                                               <input type="text" class="form-control" id="phone" name="phonenumber" placeholder="phone number" value="{{$data->phonenumber}}" style="width:90%">
+                                                <span style="color:red">@error('phone'){{$message}} @enderror</span>
+                                            </div></td>
+
+                                            <td><div class="form-group">
+                                                <label for="exampleInputPassword1">Address</label>
+                                               <input type="text" class="form-control" id="address" name="address" placeholder="address" value="{{$data->address}}" style="width:90%">
+                                                <span style="color:red">@error('address'){{$message}} @enderror</span>
+                                            </div></td></tr>
+                                            <tr>
+                                            <td><div class="form-group">
+                                                <label for="exampleInputPassword1">City </label>
+                                               <input type="text" class="form-control" id="city" name="city" placeholder="city" value="{{$data->city}}" style="width:90%">
+                                                <span style="color:red">@error('city'){{$message}} @enderror</span>
+                                            </div></td>
+                                            <td><div class="form-group">
+                                                <label for="exampleInputPassword1">Province/State </label>
+                                               <input type="text" class="form-control" id="state" name="state" placeholder="state" value="{{$data->state}}" style="width:90%">
+                                                <span style="color:red">@error('state'){{$message}} @enderror</span>
+                                            </div></td></tr>
+                                            <tr>
+                                                <td><div class="form-group">
+                                                <label for="exampleInputPassword1">Country </label>
+                                                <input type="text" class="form-control" id="country" name="country" placeholder="country" value="{{$data->country}}" style="width:90%">
+                                                <span style="color:red">@error('country'){{$message}} @enderror</span>
+                                            </div></td>
+                                            <td><div class="form-group">
+                                                <label for="exampleInputPassword1">Postal Code </label>
+                                                <input type="text" class="form-control" id="postalcode" name="postalcode" placeholder="postal code" value="{{$data->postalcode}}" style="width:90%">
+                                                <span style="color:red">@error('postalcode'){{$message}} @enderror</span>
+                                            </div></td></tr>
+</table>
+                                            
+                                            <button type="submit" class="btn btn-purple waves-effect waves-light">update</button>
+
+                                        </form>
+                                    </div><!-- card-body -->
+                                </div> <!-- card -->
+                            </div> <!-- col-->
                             
-                        
-                            <!-- end card-body -->
-                        </div>
-                        
-
-                    </div> <!-- container -->
-                               
-                </div> <!-- content -->
-
-                <footer class="footer text-right">
-                    
-                </footer>
-
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Right content here -->
-            <!-- ============================================================== -->
-
-
-            <!-- Right Sidebar -->
-            
-            <!-- end Modal -->
-
-
-        </div>
+                            <!-- Horizontal form -->
+                            
         <!-- END wrapper -->
-    
+
         <script>
             var resizefunc = [];
         </script>
 
-        <!-- jQuery  -->
+        <!-- Main  -->
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/bootstrap.bundle.min.js"></script>
         <script src="assets/js/detect.js"></script>
@@ -226,16 +209,7 @@
         <script src="assets/js/jquery.nicescroll.js"></script>
         <script src="assets/js/jquery.scrollTo.min.js"></script>
 
-	    <!-- Examples -->
-	    <script src="../plugins/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
-	    <script src="../plugins/datatables/jquery.dataTables.min.js"></script> 
-        <script src="../plugins/datatables/dataTables.bootstrap4.min.js"></script>
-        <!-- Responsive examples -->
-        <script src="../plugins/datatables/dataTables.responsive.min.js"></script>
-        <script src="../plugins/datatables/responsive.bootstrap4.min.js"></script>
-	    <script src="assets/pages/datatables.editable.init.js"></script>
-        
         <script src="assets/js/jquery.app.js"></script>
-
+	
 	</body>
 </html>

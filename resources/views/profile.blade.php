@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>Ping || Dashboard</title>
+        <title>Ping || Profile</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -60,6 +60,7 @@
 
                             <p class="text-muted m-0"></p>
                         </div>
+
                        
                     </div>
                 </nav>
@@ -74,13 +75,13 @@
                         <div class="pull-left">
                             <!--<img src="assets/images/users/avatar-1.jpg" alt="" class="thumb-md rounded-circle">-->
                         </div>
-                        <!--<div class="user-info">
+                       <!-- <div class="user-info">
                             <div class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {{$data->username}}
                                     </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="profile" class="dropdown-item"><i class="md md-face-unlock mr-2"></i> Profile<div class="ripple-wrapper"></div></a></li>
+                                    <li><a href="dashboard" class="dropdown-item"><i class="md md-face-unlock mr-2"></i> Profile<div class="ripple-wrapper"></div></a></li>
                                     
                                     <li><a href="signout" class="dropdown-item"><i class="md md-settings-power mr-2"></i> Logout</a></li>
                                 </ul>
@@ -124,13 +125,90 @@
                                         <div class=""></div>
                                         <div class="">
                                            <!-- <img src="assets/images/users/avatar-1.jpg" class="thumb-lg rounded-circle img-thumbnail" alt="profile-image">-->
-                                            <h3 class="text-black"></h3>
+                                            <h3 class="text-black">{{$data->username}}</h3>
                                         </div>
                                     </div>
                                     <!--/ meta -->
                                 </div>
                             </div>
-                       
+                            <div class="row user-tabs">
+                                <div class="col-md-9 col-xl-6">
+                                    <ul class="nav nav-tabs tabs" role="tablist">
+                                        <li class="nav-item tab">
+                                            <a class="nav-link active" id="about-tab" data-toggle="tab" href="#about" role="tab" aria-controls="about" aria-selected="true">
+                                                <span class="d-block d-sm-none"><i class="fa fa-home"></i></span>
+                                                <span class="d-none d-sm-block">About Me</span>
+                                            </a>
+                                        </li>
+                                      
+
+                                        
+                                    </ul>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+
+                                    <div class="tab-content profile-tab-content">
+                                        <div class="tab-pane show active" id="about" role="tabpanel" aria-labelledby="about-tab">
+
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <!-- Personal-Information -->
+                                                    <div class="card card-default card-fill">
+                                                        <div class="card-header">
+                                                            <h3 class="card-title">Personal Information</h3>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="about-info-p">
+                                                                <strong>Full Name</strong>
+                                                                <br>
+                                                                <p class="text-muted">{{$data->username}}</p>
+                                                            </div>
+                                                            
+                                                            <div class="about-info-p">
+                                                                <strong>Email</strong>
+                                                                <br>
+                                                                <p class="text-muted">{{$data->email}}</p>
+                                                            </div>
+                                                            <div class="about-info-p">
+                                                                <strong>Date Of Birth</strong>
+                                                                <br>
+                                                                <p class="text-muted">{{$data->dob}}</p>
+                                                            </div>
+                                                          
+                                                        </div>
+                                                    </div>
+                                                    <!-- Personal-Information -->
+
+                                                    <!-- Languages -->
+                                                  
+                                                    <!-- Languages -->
+
+                                                </div>
+
+                                                
+                                                    <!-- Personal-Information -->
+
+                                                    
+
+                                            <!-- Personal-Information -->
+                                        </div>
+
+                                       
+                                            <!-- Personal-Information -->
+                                        </div>
+
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- container-fluid -->
+
+                    </div>
                     <!-- content -->
 
                     <footer class="footer text-right">

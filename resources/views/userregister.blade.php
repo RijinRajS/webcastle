@@ -37,7 +37,7 @@
                     
                     <div class="form-group">
                         <div class="col-12">
-                            <input class="form-control input-lg" type="text" name="username"  placeholder="Username" value="{{old('username')}}">
+                            <input class="form-control input-lg" type="text" name="username"  placeholder="Full name" value="{{old('username')}}">
                             <span style="color:red"> @error('username'){{$message}} @enderror</span>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
 
                     <div class="form-group row m-t-30">
                         <div class="col-sm-7">
-                            <a href="userlogin"><i class="fa fa-user m-r-5"></i> Already Registered?Log In</a>
+                            <a href="userlogin"><i class="fa fa-user m-r-5"></i> Already Registered? Log In</a>
                         </div>
                         
                     </div>

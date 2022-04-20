@@ -34,10 +34,10 @@ class userController extends Controller
         $res=$member->save();
         if($res)
         {
-            return back()->with('success','you have successfully registered');
+            return back()->with('success','You have successfully registered');
         }
         else{
-            return back()->with('fail','something wrong');
+            return back()->with('fail','Something wrong');
         }
         
     }
@@ -56,11 +56,11 @@ class userController extends Controller
                 return redirect('dashboard');
             }
             else {
-                return back()->with('fail','password not matches');
+                return back()->with('fail','Password not matches');
             }
         }
             else {
-                return back()->with('fail','email not registered');
+                return back()->with('fail','Email not registered');
             }
         
     }
@@ -93,5 +93,15 @@ class userController extends Controller
         }
        
         return view('organization',compact('detail'),['organisations'=>$data]);
+    }
+    public function profile()
+    {
+        $data=array();
+         if(Session::has('loginId'))
+        {
+          $data=Member::where('id','=',Session::get('loginId'))->first();
+
+        }
+        return view('profile',compact('data'));
     }
 }

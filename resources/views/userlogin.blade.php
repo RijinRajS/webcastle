@@ -37,7 +37,7 @@
                     <br>
                     <div class="form-group">
                         <div class="col-12">
-                            <input class="form-control input-lg" type="text" name="email"  placeholder="email" value="{{old('email')}}">
+                            <input class="form-control input-lg" type="text" name="email"  placeholder="Email" value="{{old('email')}}">
                             <span style="color:red">@error('email'){{$message}} @enderror</span>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
 
                     <div class="form-group row m-t-30">
                         <div class="col-sm-7">
-                            <a href="userregister"><i class="fa fa-user m-r-5"></i> New user?Register here</a>
+                            <a href="userregister"><i class="fa fa-user m-r-5"></i> New user? Register here</a>
                         </div>
                         
                     </div>
