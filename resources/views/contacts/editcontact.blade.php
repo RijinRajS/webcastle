@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>Ping || Edit Organization</title>
+        <title>Ping || Edit Contact</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -48,6 +48,8 @@
                         </ul>
                         <div class="user-info">
                             <div class="dropdown">
+                            <img src="{{ asset('storage/images/'.$detail->photo)}}" class="thumb-md rounded-circle" alt="">
+
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#fff;margin-right:75px">
                                 {{$detail->username}}
                                     </a>
@@ -98,6 +100,9 @@
                             <li>
                                 <a href="organization" class="waves-effect"><i class="fa fa-building" aria-hidden="true"></i><span> Organizations </span></a>
                             </li>
+                            <li>
+                                <a href="contact" class="waves-effect"><i class="fa fa-users" aria-hidden="true"></i><span> Contacts </span></a>
+                            </li>
 
                         <ul>
 
@@ -120,7 +125,7 @@
                         <!-- Page-Title -->
                         <div class="row">
                             <div class="col-sm-12">
-                                <h4 class="pull-left page-title">Update Organization</h4>
+                                <h4 class="pull-left page-title">Update Contact</h4>
                                
                             </div>
                         </div>
@@ -131,64 +136,81 @@
                             <div class="col-xl-12">
                                 <div class="card">
                                     <div class="card-body">
-                                    <form action="{{route('update-organization')}}" method="POST">
-                                        <table style="width:100%">
+                                    <form action="{{route('update-contact')}}" method="POST">
+                                    <table style="width:100%">
                                         <input type="hidden" name="id" value="{{$data->id}}"/>
                 @csrf
-                                           <tr><td> <div class="form-group">
-                                                <label for="exampleInputEmail1">Name </label>
-                                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" value="{{$data->name}}" style="width:90%">
+                
+                                           <td> <div class="form-group">
+                                                <label for="exampleInputEmail1">First name</label>
+                                                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter firstname" value="{{$data->firstname}}" style="width:90%">
+                                                <span style="color:red">@error('firstname'){{$message}} @enderror</span>
+                                            </div></td>
+                                           <td> <div class="form-group">
+                                                <label for="exampleInputPassword1">Last name</label>
+                                                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Lastname" value="{{$data->lastname}}" style="width:90%">
+                                                <span style="color:red">@error('lastname'){{$message}} @enderror</span>
+                                            </div></td></tr>
+                                          <tr>
+                                               <td> <div class="form-group">
+                                                <label for="exampleInputPassword1">Organization</label>
+                                                <select class="form-control" name="organization"  style="width:90%">
+                                                <option value="{{$data->organisation_id}}">{{$data->organisation_id}}</option>
+                                                @foreach($organisations as $organisation)
                                                 
-                                                <span style="color:red">@error('name'){{$message}} @enderror</span>
+
+                                                        <option value="{{$organisation['id']}}">{{$organisation['name']}}</option>
+                                                        @endforeach
+                                                        
+                                                    </select>
+                                                <span style="color:red">@error('organization'){{$message}} @enderror</span>
                                             </div></td>
                                             <td><div class="form-group">
                                                 <label for="exampleInputPassword1">Email</label>
-                                                <input type="text" class="form-control" id="email" name="email" placeholder="email" value="{{$data->email}}" style="width:90%">
+                                                <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="{{$data->email}}" style="width:90%">
                                                 <span style="color:red">@error('email'){{$message}} @enderror</span>
                                             </div></td></tr>
+
                                             <tr>
-                                                <td><div class="form-group">
+                                            <td> <div class="form-group">
                                                 <label for="exampleInputPassword1">Phone</label>
-                                               <input type="text" class="form-control" id="phone" name="phonenumber" placeholder="phone number" value="{{$data->phonenumber}}" style="width:90%">
+                                                <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone number" value="{{$data->phone}}" style="width:90%">
                                                 <span style="color:red">@error('phone'){{$message}} @enderror</span>
                                             </div></td>
-
-                                            <td><div class="form-group">
+                                                <td><div class="form-group">
                                                 <label for="exampleInputPassword1">Address</label>
-                                               <input type="text" class="form-control" id="address" name="address" placeholder="address" value="{{$data->address}}" style="width:90%">
+                                                <input type="text" class="form-control" id="address" name="address" placeholder="Address" value="{{$data->address}}"style="width:90%">
                                                 <span style="color:red">@error('address'){{$message}} @enderror</span>
                                             </div></td></tr>
                                             <tr>
-                                            <td><div class="form-group">
-                                                <label for="exampleInputPassword1">City </label>
-                                               <input type="text" class="form-control" id="city" name="city" placeholder="city" value="{{$data->city}}" style="width:90%">
+                                           <td> <div class="form-group">
+                                                <label for="exampleInputPassword1">City</label>
+                                                <input type="text" class="form-control" id="city" name="city" placeholder="City" value="{{$data->city}}" style="width:90%">
                                                 <span style="color:red">@error('city'){{$message}} @enderror</span>
                                             </div></td>
+                                            
+
                                             <td><div class="form-group">
-                                                <label for="exampleInputPassword1">Province/State </label>
-                                               <input type="text" class="form-control" id="state" name="state" placeholder="state" value="{{$data->state}}" style="width:90%">
+                                                <label for="exampleInputPassword1">Province/State</label>
+                                                <input type="text" class="form-control" id="state" name="state" placeholder="State" value="{{$data->state}}" style="width:90%">
                                                 <span style="color:red">@error('state'){{$message}} @enderror</span>
                                             </div></td></tr>
-                                            <tr>
-                                                <td><div class="form-group">
-                                                <label for="exampleInputPassword1">Country </label>
-                                                <input type="text" class="form-control" id="country" name="country" placeholder="country" value="{{$data->country}}" style="width:90%">
-                                                <span style="color:red">@error('country'){{$message}} @enderror</span>
-                                            </div></td>
-                                            <td><div class="form-group">
-                                                <label for="exampleInputPassword1">Postal Code </label>
-                                                <input type="text" class="form-control" id="postalcode" name="postalcode" placeholder="postal code" value="{{$data->postalcode}}" style="width:90%">
-                                                <span style="color:red">@error('postalcode'){{$message}} @enderror</span>
-                                            </div></td></tr>
-</table>
+                                           </table>
                                             
                                             <button type="submit" class="btn btn-purple waves-effect waves-light">update</button>
-
+                                            @if(Session::has('success'))
+                <h4 style="color:green">{{Session::get('success')}}</h4>
+                @endif
+                @if(Session::has('fail'))
+              <h4 style="color:red">{{Session::get('fail')}}</h4>
+                @endif
                                         </form>
                                     </div><!-- card-body -->
                                 </div> <!-- card -->
                             </div> <!-- col-->
-                            
+                            <footer class="footer text-right">
+                      &copy; ping
+                    </footer>
                             <!-- Horizontal form -->
                             
         <!-- END wrapper -->

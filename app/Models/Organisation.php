@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Organisation extends Model
 {
     protected $table='organisations';
+    function getContact(){
+        
+    return $this->hasMany('App\Models\Contact');
+    }
+
 }

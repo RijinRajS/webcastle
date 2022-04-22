@@ -47,7 +47,10 @@
                             
                         </ul>
                         <div class="user-info">
+                        
+
                             <div class="dropdown">
+                            <img src="{{ asset('storage/images/'.$data->photo)}}" class="thumb-md rounded-circle" alt="">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#fff;margin-right:75px">
                                 {{$data->username}}
                                     </a>
@@ -99,7 +102,9 @@
                             <li>
                                 <a href="organization" class="waves-effect"><i class="fa fa-building" aria-hidden="true"></i><span> Organizations </span></a>
                             </li>
-
+                            <li>
+                                <a href="contact" class="waves-effect"><i class="fa fa-users" aria-hidden="true"></i><span> Contacts </span></a>
+                            </li>
                         <ul>
 
                         <div class="clearfix"></div>
@@ -124,7 +129,7 @@
                                     <div class="bg-picture text-center" style="background-color:#fff">
                                         <div class=""></div>
                                         <div class="">
-                                           <!-- <img src="assets/images/users/avatar-1.jpg" class="thumb-lg rounded-circle img-thumbnail" alt="profile-image">-->
+                                           <img src="{{ asset('storage/images/'.$data->photo)}}" class="thumb-lg rounded-circle img-thumbnail" alt="">
                                             <h3 class="text-black">{{$data->username}}</h3>
                                         </div>
                                     </div>
@@ -156,15 +161,22 @@
                                             <div class="row">
                                                 <div class="col-lg-4">
                                                     <!-- Personal-Information -->
+                                                    <form action="" method="">
+                                    <input type="hidden" name="id" value="{{$data->id}}"/>
                                                     <div class="card card-default card-fill">
                                                         <div class="card-header">
                                                             <h3 class="card-title">Personal Information</h3>
                                                         </div>
                                                         <div class="card-body">
                                                             <div class="about-info-p">
-                                                                <strong>Full Name</strong>
+                                                                <strong>First Name</strong>
                                                                 <br>
                                                                 <p class="text-muted">{{$data->username}}</p>
+                                                            </div>
+                                                            <div class="about-info-p">
+                                                                <strong>Last Name</strong>
+                                                                <br>
+                                                                <p class="text-muted">{{$data->lastname}}</p>
                                                             </div>
                                                             
                                                             <div class="about-info-p">
@@ -177,6 +189,8 @@
                                                                 <br>
                                                                 <p class="text-muted">{{$data->dob}}</p>
                                                             </div>
+                                                            <a href="{{ route('profile.edit',['id' => $data->id]) }}" class="btn btn-purple waves-effect waves-light">Edit</a>
+                                            <a href="" class="btn btn-danger waves-effect waves-light" data-href="" data-toggle="modal" data-target="#confirm-delete">Delete</a>
                                                           
                                                         </div>
                                                     </div>

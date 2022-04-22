@@ -7,6 +7,7 @@ use Session;
 
 use App\Models\Member;
 use App\Models\Organisation;
+use App\Models\Contact;
 
 
 use Illuminate\Http\Request;
@@ -72,7 +73,7 @@ class userController extends Controller
           $data=Member::where('id','=',Session::get('loginId'))->first();
 
         }
-        return view('dashboard',compact('data'));
+        return view('user.dashboard',compact('data'));
     }
     public function signout()
     {
@@ -84,7 +85,7 @@ class userController extends Controller
     }
     function organizationShow()
     {
-       $data=Organisation::paginate(5);
+       $data=Organisation::paginate(3);
        $detail=array();
          if(Session::has('loginId'))
         {
@@ -92,7 +93,7 @@ class userController extends Controller
 
         }
        
-        return view('organization',compact('detail'),['organisations'=>$data]);
+        return view('organization.organization',compact('detail'),['organisations'=>$data]);
     }
     public function profile()
     {
@@ -102,6 +103,66 @@ class userController extends Controller
           $data=Member::where('id','=',Session::get('loginId'))->first();
 
         }
-        return view('profile',compact('data'));
+        return view('user.profile',compact('data'));
+    }
+    function editProfile(Request $request)
+    {
+
+       $data=Member::find($request->id);
+
+        $detail=array();
+         if(Session::has('loginId'))
+        {
+          $detail=Member::where('id','=',Session::get('loginId'))->first();
+
+        }
+
+       return view('user.edituser', ['data' => $data, 'detail' => $detail]);
+
+    }
+    function updateUser(Request $req,Member $mem )
+    {
+        //dd($org);
+       // dd($request);
+       $req->validate(
+            ['username'=>'required',
+            'lastname'=>'required',
+            'email'=>'required|email',
+            'password' => 'min:6|required',
+        'dob'=>'required',
+        'photo' => 'image|required'
+        ]);
+        if($req->hasFile('photo')){
+            $filenameWithExt=$req->file('photo')->getClientOriginalName();
+            $filename=pathinfo($filenameWithExt,PATHINFO_FILENAME);
+            $extension=$req->file('photo')->getClientOriginalExtension();
+            $fileNameToStore=$filename.'_'.time().'.'.$extension;
+            $path=$req->file('photo')->storeAs('public/images',$fileNameToStore);
+        
+        }
+        else {
+            $fileNameToStore='noimage.jpg';
+        }
+        
+        $member=Member::find($req->id);
+        $member->username=$req->username;
+        $member->lastname=$req->lastname;
+        $member->email=$req->email;
+        $member->password=Hash::make($req->password);
+        $member->dob=$req->dob;
+        $member->photo=$fileNameToStore;
+        
+         $res=$member->save();
+         if($res)
+        {
+            return redirect('organization.organization')->with('success','Profile Updated successfully');
+        }
+        else{
+            return back()->with('fail','Something wrong');
+        }
+
+
+      
+         
     }
 }

@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>Ping || View Organization</title>
+        <title>Ping || Add Organization</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -17,36 +17,10 @@
         <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
 
         <script src="assets/js/modernizr.min.js"></script>
-<style>
-    p{
-        color:black;
-    }
-    </style>
+
     </head>
 
     <body class="fixed-left">
-    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
-                </div>
-            
-                <div class="modal-body">
-                    <p>You are about to delete one organization, this procedure is irreversible.</p>
-                    <p>Do you want to proceed?</p>
-                    <p class="debug-url"></p>
-                </div>
-                
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-danger btn-ok">Delete</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
         <!-- Begin page -->
         <div id="wrapper">
@@ -75,8 +49,10 @@
 
                         <div class="user-info">
                             <div class="dropdown">
+                            <img src="{{ asset('storage/images/'.$data->photo)}}" class="thumb-md rounded-circle" alt="">
+
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#fff;margin-right:75px">
-                                {{$detail->username}}
+                                {{$data->username}}
                                     </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="profile" class="dropdown-item"><i class="md md-face-unlock mr-2"></i> Profile<div class="ripple-wrapper"></div></a></li>
@@ -100,10 +76,10 @@
                         <div class="pull-left">
                             <!--<img src="assets/images/users/avatar-1.jpg" alt="" class="thumb-md rounded-circle">-->
                         </div>
-                       <!-- <div class="user-info">
+                        <!--<div class="user-info">
                             <div class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{$detail->username}}
+                                {{$data->username}}
                                     </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="dashboard" class="dropdown-item"><i class="md md-face-unlock mr-2"></i> Profile<div class="ripple-wrapper"></div></a></li>
@@ -123,6 +99,9 @@
                             </li>
                             <li>
                                 <a href="organization" class="waves-effect"><i class="fa fa-building" aria-hidden="true"></i><span> Organizations </span></a>
+                            </li>
+                            <li>
+                                <a href="contact" class="waves-effect"><i class="fa fa-users" aria-hidden="true"></i><span> Contacts </span></a>
                             </li>
 
                         <ul>
@@ -146,11 +125,11 @@
                         <!-- Page-Title -->
                         <div class="row">
                             <div class="col-sm-12">
-                                <h4 class="pull-left page-title">View Organization</h4>
+                                <h4 class="pull-left page-title">Create Organization</h4>
                                 <ol class="breadcrumb pull-right">
-                                    <li><a href="dashboard">{{$detail->username}}</a></li>
+                                    <li><a href="dashboard">{{$data->username}}</a></li>
                                     <li><a href="organization">Organization</a></li>
-                                    <li class="active">View</li>
+                                    <li class="active">Create</li>
                                 </ol>
                             </div>
                         </div>
@@ -161,64 +140,62 @@
                             <div class="col-xl-12">
                                 <div class="card">
                                     <div class="card-body">
-                                    <form action="" method="">
-                                    <input type="hidden" name="id" value="{{$data->id}}"/>
-                                    <table style="width:100%">
+                                    <form action="{{route('Add-organization')}}" method="POST">
                 @csrf
-                                       <tr>
-                                           <td>     <div class="form-group">
-                                                <label for="exampleInputEmail1">Name : </label> <p>{{$data->name}}</p>
-                                                <!--<input type="text" class="form-control" id="name" name="name" placeholder="Enter name" value="{{$data->name}}">-->
-                                                
+                <table style="width:100%">
+                                           <td> <div class="form-group">
+                                                <label for="exampleInputEmail1">Name</label>
+                                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" value="{{old('name')}}" style="width:90%">
                                                 <span style="color:red">@error('name'){{$message}} @enderror</span>
                                             </div></td>
                                            <td> <div class="form-group">
-                                                <label for="exampleInputPassword1">Email :</label><p>{{$data->email}}</p>
-                                                <!--<input type="text" class="form-control" id="email" name="email" placeholder="email" value="{{$data->email}}">-->
+                                                <label for="exampleInputPassword1">Email</label>
+                                                <input type="text" class="form-control" id="email" name="email" placeholder="email" value="{{old('email')}}" style="width:90%">
                                                 <span style="color:red">@error('email'){{$message}} @enderror</span>
                                             </div></td></tr>
-                                            <tr>
-                                            <td><div class="form-group">
-                                                <label for="exampleInputPassword1">Phone :</label><p>{{$data->phonenumber}}</p>
-                                               <!-- <input type="text" class="form-control" id="phone" name="phone" placeholder="phone number" value="{{$data->phonenumber}}">-->
+                                          <tr>
+                                               <td> <div class="form-group">
+                                                <label for="exampleInputPassword1">Phone</label>
+                                                <input type="text" class="form-control" id="phone" name="phone" placeholder="phone number" value="{{old('phone')}}" style="width:90%">
                                                 <span style="color:red">@error('phone'){{$message}} @enderror</span>
                                             </div></td>
                                             <td><div class="form-group">
-                                                <label for="exampleInputPassword1">Address :</label> <p>{{$data->address}}</p>
-                                               <!-- <input type="text" class="form-control" id="address" name="address" placeholder="address" value="{{$data->address}}">-->
+                                                <label for="exampleInputPassword1">Address</label>
+                                                <input type="text" class="form-control" id="address" name="address" placeholder="address" value="{{old('address')}}" style="width:90%">
                                                 <span style="color:red">@error('address'){{$message}} @enderror</span>
                                             </div></td></tr>
                                             <tr>
-                                            <td><div class="form-group">
-                                                <label for="exampleInputPassword1">City :</label> <p>{{$data->city}}</p>
-                                               <!-- <input type="text" class="form-control" id="city" name="city" placeholder="city" value="{{$data->city}}">-->
+                                                <td><div class="form-group">
+                                                <label for="exampleInputPassword1">City</label>
+                                                <input type="text" class="form-control" id="city" name="city" placeholder="city" value="{{old('city')}}" style="width:90%">
                                                 <span style="color:red">@error('city'){{$message}} @enderror</span>
                                             </div></td>
-                                            <td><div class="form-group">
-                                                <label for="exampleInputPassword1">Province/State :</label><p>{{$data->state}}</p>
-                                               <!-- <input type="text" class="form-control" id="state" name="state" placeholder="state" value="{{$data->state}}">-->
+                                           <td> <div class="form-group">
+                                                <label for="exampleInputPassword1">Province/State</label>
+                                                <input type="text" class="form-control" id="state" name="state" placeholder="state" value="{{old('state')}}" style="width:90%">
                                                 <span style="color:red">@error('state'){{$message}} @enderror</span>
                                             </div></td></tr>
                                             <tr>
+
                                             <td><div class="form-group">
-                                                <label for="exampleInputPassword1">Country :</label> <p>{{$data->country}}</p>
-                                                <!--<input type="text" class="form-control" id="country" name="country" placeholder="country" value="{{$data->country}}">-->
+                                                <label for="exampleInputPassword1">Country</label>
+                                                <input type="text" class="form-control" id="country" name="country" placeholder="country" value="{{old('country')}}" style="width:90%">
                                                 <span style="color:red">@error('country'){{$message}} @enderror</span>
                                             </div></td>
-                                            <td><div class="form-group">
-                                                <label for="exampleInputPassword1">Postal Code :</label> <p>{{$data->postalcode}}</p>
-                                                <!--<input type="text" class="form-control" id="postalcode" name="postalcode" placeholder="postal code" value="{{$data->postalcode}}">-->
+                                           <td> <div class="form-group">
+                                                <label for="exampleInputPassword1">Postal Code</label>
+                                                <input type="text" class="form-control" id="postalcode" name="postalcode" placeholder="postal code" value="{{old('postalcode')}}" style="width:90%">
                                                 <span style="color:red">@error('postalcode'){{$message}} @enderror</span>
                                             </div></td></tr></table>
                                             
-                                            <a href="{{ route('organisation.edit',['id' => $data->id]) }}" class="btn btn-purple waves-effect waves-light">Edit</a>
-                                            <a href="{{ route('organisation.delete',['id' => $data->id]) }}" class="btn btn-danger waves-effect waves-light" data-href="{{ route('organisation.delete',['id' => $data->id]) }}" data-toggle="modal" data-target="#confirm-delete">Delete</a>
-
+                                            <button type="submit" class="btn btn-purple waves-effect waves-light">Create</button>
                                         </form>
                                     </div><!-- card-body -->
                                 </div> <!-- card -->
                             </div> <!-- col-->
-                            
+                            <footer class="footer text-right">
+                      &copy; ping
+                    </footer>
                             <!-- Horizontal form -->
                             
         <!-- END wrapper -->
@@ -240,12 +217,6 @@
         <script src="assets/js/jquery.scrollTo.min.js"></script>
 
         <script src="assets/js/jquery.app.js"></script>
-	<script> 
-        $('#confirm-delete').on('show.bs.modal', function(e) {
-            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-            
-            $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
-        });
-    </script>
+	
 	</body>
 </html>

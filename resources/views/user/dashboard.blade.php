@@ -48,6 +48,8 @@
                         </ul>
                         <div class="user-info">
                             <div class="dropdown">
+                            <img src="{{ asset('storage/images/'.$data->photo)}}" class="thumb-md rounded-circle" alt="">
+
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#fff;margin-right:75px">
                                 {{$data->username}}
                                     </a>
@@ -97,6 +99,9 @@
                             </li>
                             <li>
                                 <a href="organization" class="waves-effect"><i class="fa fa-building" aria-hidden="true"></i><span> Organizations </span></a>
+                            </li>
+                            <li>
+                                <a href="contact" class="waves-effect"><i class="fa fa-users" aria-hidden="true"></i><span> Contacts </span></a>
                             </li>
 
                         <ul>

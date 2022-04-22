@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>Ping || Organizations</title>
+        <title>Ping || View Contact</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -17,10 +17,36 @@
         <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
 
         <script src="assets/js/modernizr.min.js"></script>
-
+<style>
+    p{
+        color:black;
+    }
+    </style>
     </head>
 
     <body class="fixed-left">
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+                </div>
+            
+                <div class="modal-body">
+                    <p>You are about to delete one organization, this procedure is irreversible.</p>
+                    <p>Do you want to proceed?</p>
+                    <p class="debug-url"></p>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-danger btn-ok">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
         <!-- Begin page -->
         <div id="wrapper">
@@ -46,8 +72,11 @@
                             </li>
                             
                         </ul>
+
                         <div class="user-info">
                             <div class="dropdown">
+                            <img src="{{ asset('storage/images/'.$detail->photo)}}" class="thumb-md rounded-circle" alt="">
+
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#fff;margin-right:75px">
                                 {{$detail->username}}
                                     </a>
@@ -60,8 +89,6 @@
 
                             <p class="text-muted m-0"></p>
                         </div>
-
-                       
                     </div>
                 </nav>
             </div>
@@ -75,7 +102,7 @@
                         <div class="pull-left">
                             <!--<img src="assets/images/users/avatar-1.jpg" alt="" class="thumb-md rounded-circle">-->
                         </div>
-                        <!--<div class="user-info">
+                       <!-- <div class="user-info">
                             <div class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {{$detail->username}}
@@ -99,7 +126,9 @@
                             <li>
                                 <a href="organization" class="waves-effect"><i class="fa fa-building" aria-hidden="true"></i><span> Organizations </span></a>
                             </li>
-
+                            <li>
+                                <a href="contact" class="waves-effect"><i class="fa fa-users" aria-hidden="true"></i><span> Contacts </span></a>
+                            </li>
                         <ul>
 
                         <div class="clearfix"></div>
@@ -107,8 +136,8 @@
                     <div class="clearfix"></div>
                 </div>
             </div>
+    
             <!-- Left Sidebar End --> 
-
 
             <!-- ============================================================== -->
             <!-- Start right Content here -->
@@ -121,100 +150,75 @@
                         <!-- Page-Title -->
                         <div class="row">
                             <div class="col-sm-12">
-                                <h4 class="pull-left page-title">Organizations</h4>
+                                <h4 class="pull-left page-title">View Contact</h4>
                                 <ol class="breadcrumb pull-right">
                                     <li><a href="dashboard">{{$detail->username}}</a></li>
-                                    <li><a href="dashboard">Dashboard</a></li>
-                                    <li class="active">Organizations</li>
+                                    <li><a href="organization">Organization</a></li>
+                                    <li class="active">View Contact</li>
                                 </ol>
                             </div>
                         </div>
 
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-6" >
-                                        <div class="m-b-30" >
-                                            <a href="createorganization" id="addToTable" class="btn btn-success waves-effect waves-light">Create Organization <i class="mdi mdi-plus-circle-outline"></i></a>
-                                            @if(Session::has('success'))
-                <h4 style="color:green">{{Session::get('success')}}</h4>
-                @endif
-                @if(Session::has('fail'))
-              <h4 style="color:red">{{Session::get('fail')}}</h4>
-                @endif
-                                        </div>
-                                    </div>
-                                </div>
-    
-                                <table class="table table-striped add-edit-table dt-responsive nowrap" id="datatable-editable" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                    <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>City</th>
-                                        <th>Phone Number</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($organisations as $organisation)
-                                    <tr class="gradeX">
-                                        <td>{{$organisation['name']}}</td>
-                                        <td>{{$organisation['city']}}
-                                        </td>
-                                        <td>{{$organisation['phonenumber']}}</td>
-                                        <td class="actions">
-                                           &nbsp;&nbsp;&nbsp; <a href="{{ route('organisation.show',['id' => $organisation->id]) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Show"><i class="fa fa-eye"></i></a>
-                                        </td>
-                                    </tr>
-                                    
-                                    @endforeach
-                                    
-                                    </tbody>
-                                </table>
-                             
-                                   
-                                        {{$organisations->links()}}
-                                    
-                                
-                                    
 
-                                
-</div>
- 
-                        
-                            
-                        
-                            <!-- end card-body -->
-                        </div>
-                        
+                        <div class="row">
+                            <!-- Basic example -->
+                            <div class="col-xl-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                    <form action="" method="">
+                                    <input type="hidden" name="id" value="{{$data->id}}"/>
+                                    <table style="width:100%">
+                @csrf
+                                       <tr>
+                                           <td>     <div class="form-group">
+                                                <label for="exampleInputEmail1">First name : </label> <p>{{$data->firstname}}</p>
+                                                
+                                            </div></td>
+                                           <td> <div class="form-group">
+                                                <label for="exampleInputPassword1">Last name :</label><p>{{$data->lastname}}</p>
+                                            </div></td></tr>
+                                            <tr>
+                                            <td><div class="form-group">
+                                                <label for="exampleInputPassword1">Organization id :</label><p>{{$data->organisation_id}}</p>
+                                            </div></td>
+                                            <td><div class="form-group">
+                                                <label for="exampleInputPassword1">Email :</label> <p>{{$data->email}}</p>
+                                            </div></td></tr>
+                                            <tr>
+                                            <td><div class="form-group">
+                                                <label for="exampleInputPassword1">Phone number :</label> <p>{{$data->phone}}</p>
+                                            </div></td>
+                                            <td><div class="form-group">
+                                                <label for="exampleInputPassword1">Address:</label><p>{{$data->address}}</p>
+                                            </div></td></tr>
+                                            <tr>
+                                            <td><div class="form-group">
+                                                <label for="exampleInputPassword1">City :</label> <p>{{$data->city}}</p>
+                                            </div></td>
+                                            <td><div class="form-group">
+                                                <label for="exampleInputPassword1">Province/State :</label> <p>{{$data->state}}</p>
+                                            </div></td></tr></table>
 
-                    </div> <!-- container -->
+                                        </form>
+                                    </div><!-- card-body -->
+                                </div> <!-- card -->
+                                
                                
-                </div> <!-- content -->
-
-                <footer class="footer text-right">
-                    
-                </footer>
-
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Right content here -->
-            <!-- ============================================================== -->
-
-
-            <!-- Right Sidebar -->
+                            </div> <!-- col-->
             
-            <!-- end Modal -->
-
-
-        </div>
+                            <footer class="footer text-right">
+                      &copy; ping
+                    </footer>
+                            
+                            <!-- Horizontal form -->
+                            
         <!-- END wrapper -->
-    
+
         <script>
             var resizefunc = [];
         </script>
 
-        <!-- jQuery  -->
+        <!-- Main  -->
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/bootstrap.bundle.min.js"></script>
         <script src="assets/js/detect.js"></script>
@@ -226,16 +230,13 @@
         <script src="assets/js/jquery.nicescroll.js"></script>
         <script src="assets/js/jquery.scrollTo.min.js"></script>
 
-	    <!-- Examples -->
-	    <script src="../plugins/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
-	    <script src="../plugins/datatables/jquery.dataTables.min.js"></script> 
-        <script src="../plugins/datatables/dataTables.bootstrap4.min.js"></script>
-        <!-- Responsive examples -->
-        <script src="../plugins/datatables/dataTables.responsive.min.js"></script>
-        <script src="../plugins/datatables/responsive.bootstrap4.min.js"></script>
-	    <script src="assets/pages/datatables.editable.init.js"></script>
-        
         <script src="assets/js/jquery.app.js"></script>
-
+	<script> 
+        $('#confirm-delete').on('show.bs.modal', function(e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+            
+            $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
+        });
+    </script>
 	</body>
 </html>

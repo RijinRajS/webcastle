@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Member;
 use App\Models\Organisation;
+use App\Models\Contact;
 use Session;
 
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class organizationController extends Controller
           $data=Member::where('id','=',Session::get('loginId'))->first();
 
         }
-        return view('createorganization',compact('data'));
+        return view('organization.createorganization',compact('data'));
     }
     public function Create(Request $req)
     {
@@ -44,7 +45,7 @@ class organizationController extends Controller
         $res=$member->save();
         if($res)
         {
-            return redirect('organization')->with('success','Organization added successfully');
+            return redirect('organization.organization')->with('success','Organization added successfully');
         }
         else{
             return back()->with('fail','Something wrong');
@@ -55,13 +56,16 @@ class organizationController extends Controller
     {
        $data=Organisation::all();
        
-        return view('organization',['organisations'=>$data]);
+        return view('organization.organization',['organisations'=>$data]);
     }
    
     function viewUser(Request $request)
     {
 
-       $data=Organisation::find($request->id);
+        
+       $data=Organisation::find($request->id)->getContact;
+       $orgid=Organisation::find($request->id);
+    //dd($orgid);
 
         $detail=array();
          if(Session::has('loginId'))
@@ -69,8 +73,9 @@ class organizationController extends Controller
           $detail=Member::where('id','=',Session::get('loginId'))->first();
 
         }
+        
 
-       return view('vieworganization', ['data' => $data, 'detail' => $detail]);
+       return view('organization.vieworganization', ['data' => $data, 'detail' => $detail,'orgid'=>$orgid]);
 
     }
     function edit(Request $request)
@@ -85,7 +90,7 @@ class organizationController extends Controller
 
         }
 
-       return view('editorganization', ['data' => $data, 'detail' => $detail]);
+       return view('organization.editorganization', ['data' => $data, 'detail' => $detail]);
 
     }
     function update(Request $request,Organisation $org )
@@ -116,7 +121,7 @@ class organizationController extends Controller
          $res=$data->save();
          if($res)
         {
-            return redirect('organization')->with('success','Organization Updated successfully');
+            return redirect('organization.organization')->with('success','Organization Updated successfully');
         }
         else{
             return back()->with('fail','Something wrong');
@@ -131,7 +136,7 @@ class organizationController extends Controller
        
     $data=Organisation::find($request->id);
     $data->delete();
-    return redirect('organization')->with('success','Organization Deleted successfully');
+    return redirect('organization.organization')->with('success','Organization Deleted successfully');
      }
     
 }
