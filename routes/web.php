@@ -30,7 +30,6 @@ Route::get("/signout",[AdminController::class,'signout']);
 Route::get("/user",[AdminController::class,'Index']);
 Route::get("/createuser",[UserController::class,'Create']);
 Route::post("/Add-user",[UserController::class,'Store'])->name('Add-user');
-//Route::get("vieworganization/{id}",[organizationController::class,'viewUser'])->name('view');
 Route::get("/viewuser",[UserController::class,'viewUser'])->name('user.show');
 Route::get("/edituser",[UserController::class,'edit'])->name('user.edit');
 Route::post("/update-user",[UserController::class,'update'])->name('update-user');
