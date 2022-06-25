@@ -1,168 +1,109 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Session;
+use App\Models\User;
 
-
-use App\Models\Member;
-use App\Models\Organisation;
-use App\Models\Contact;
-
-
+use App\Models\Admin;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
-class userController extends Controller
+class UserController extends Controller
 {
     //
-    public function registeruser(Request $req)
+    public function Create()
+    {
+        $data=array();
+         if(Session::has('loginId'))
+        {
+          $data=Admin::where('id','=',Session::get('loginId'))->first();
+
+        }
+        return view('user.createuser',compact('data'));
+    }
+    public function Store(Request $req)
     {
         $req->validate(
-            ['username'=>'required',
-            'email'=>'required|email|unique:members',
-            'password' => 'min:6|required',
-'confirmpassword' => 'min:6|required_with:confirmpassword|same:password',
-        
-        'dob'=>'required'
+            ['name'=>'required',
+            'email'=>'required|email|unique:users',
+            'mobile'=>'required|digits:10|numeric',
+            
         ]);
-        $member=new Member();
-        $member->username=$req->username;
-        $member->email=$req->email;
-        $member->password=Hash::make($req->password);
-        $member->dob=$req->dob;
-        
-        $res=$member->save();
+        $user=new User();
+        $user->name=$req->name;
+        $user->email=$req->email;
+        $user->mobile=$req->mobile;
+        $res=$user->save();
         if($res)
         {
-            return back()->with('success','You have successfully registered');
+            return redirect('user')->with('success','User added successfully');
         }
         else{
             return back()->with('fail','Something wrong');
         }
         
     }
-    public function loginuser(Request $req)
+   
+    function viewUser(Request $request)
     {
-        $req->validate(
-            [
-            'email'=>'required|email',
-        'password'=>'required | min:6'
-        ]);
-        $member=Member::where('email','=',$req->email)->first();
-        if($member)
-        {
-            if(Hash::check($req->password,$member->password)){
-                $req->session()->put('loginId',$member->id);
-                return redirect('dashboard');
-            }
-            else {
-                return back()->with('fail','Password not matches');
-            }
-        }
-            else {
-                return back()->with('fail','Email not registered');
-            }
-        
-    }
-    public function dashboard()
-    {
-        $data=array();
-         if(Session::has('loginId'))
-        {
-          $data=Member::where('id','=',Session::get('loginId'))->first();
-
-        }
-        return view('user.dashboard',compact('data'));
-    }
-    public function signout()
-    {
-        if(Session::has('loginId')){
-           Session::pull('loginId');
-           return redirect('userlogin');
-        }
-        
-    }
-    function organizationShow()
-    {
-       $data=Organisation::paginate(3);
-       $detail=array();
-         if(Session::has('loginId'))
-        {
-          $detail=Member::where('id','=',Session::get('loginId'))->first();
-
-        }
-       
-        return view('organization.organization',compact('detail'),['organisations'=>$data]);
-    }
-    public function profile()
-    {
-        $data=array();
-         if(Session::has('loginId'))
-        {
-          $data=Member::where('id','=',Session::get('loginId'))->first();
-
-        }
-        return view('user.profile',compact('data'));
-    }
-    function editProfile(Request $request)
-    {
-
-       $data=Member::find($request->id);
+       $orgid=User::find($request->id);
+    //dd($orgid);
 
         $detail=array();
          if(Session::has('loginId'))
         {
-          $detail=Member::where('id','=',Session::get('loginId'))->first();
+          $detail=Admin::where('id','=',Session::get('loginId'))->first();
+
+        }
+       return view('user.viewuser', ['detail' => $detail,'orgid'=>$orgid]);
+
+    }
+    function edit(Request $request)
+    {
+
+       $data=User::find($request->id);
+
+        $detail=array();
+         if(Session::has('loginId'))
+        {
+          $detail=Admin::where('id','=',Session::get('loginId'))->first();
 
         }
 
-       return view('user.edituser', ['data' => $data, 'detail' => $detail]);
+       return view('user.editusers', ['data' => $data, 'detail' => $detail]);
 
     }
-    function updateUser(Request $req,Member $mem )
+    function update(Request $request,User $org )
     {
         //dd($org);
        // dd($request);
-       $req->validate(
-            ['username'=>'required',
-            'lastname'=>'required',
+       $request->validate(
+            ['name'=>'required',
             'email'=>'required|email',
-            'password' => 'min:6|required',
-        'dob'=>'required',
-        'photo' => 'image|required'
+            'mobile'=>'required|digits:10|numeric',
+           
         ]);
-        if($req->hasFile('photo')){
-            $filenameWithExt=$req->file('photo')->getClientOriginalName();
-            $filename=pathinfo($filenameWithExt,PATHINFO_FILENAME);
-            $extension=$req->file('photo')->getClientOriginalExtension();
-            $fileNameToStore=$filename.'_'.time().'.'.$extension;
-            $path=$req->file('photo')->storeAs('public/images',$fileNameToStore);
         
-        }
-        else {
-            $fileNameToStore='noimage.jpg';
-        }
-        
-        $member=Member::find($req->id);
-        $member->username=$req->username;
-        $member->lastname=$req->lastname;
-        $member->email=$req->email;
-        $member->password=Hash::make($req->password);
-        $member->dob=$req->dob;
-        $member->photo=$fileNameToStore;
-        
-         $res=$member->save();
+        $data=User::find($request->id);
+         $data->name=$request->name;
+         $data->email=$request->email;
+         $data->mobile=$request->mobile;
+       
+         
+         $res=$data->save();
          if($res)
         {
-            return redirect('organization.organization')->with('success','Profile Updated successfully');
+            return redirect('user')->with('success','User Updated successfully');
         }
         else{
             return back()->with('fail','Something wrong');
-        }
-
-
-      
-         
+        }     
     }
+    function delete(Request $request)
+    {
+       
+    $data=User::find($request->id);
+    $data->delete();
+    return redirect('user')->with('success','User Deleted successfully');
+     }
+    
 }

@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>Ping || Profile</title>
+        <title>WebCastle || Dashboard</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -31,7 +31,7 @@
                 <!-- LOGO -->
                 <div class="topbar-left">
                     <div class="text-center">
-                        <a href="#" class="logo"><i class="md md-message"></i> <span>Ping </span></a>
+                        <a href="#" class="logo"></i> <span>Web Castle </span></a>
                     </div>
                 </div>
                 <!-- Button mobile view to collapse sidebar menu -->
@@ -47,23 +47,18 @@
                             
                         </ul>
                         <div class="user-info">
-                        
-
                             <div class="dropdown">
-                            <img src="{{ asset('storage/images/'.$data->photo)}}" class="thumb-md rounded-circle" alt="">
+
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#fff;margin-right:75px">
-                                {{$data->username}}
+                                {{$data->name}}
                                     </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="profile" class="dropdown-item"><i class="md md-face-unlock mr-2"></i> Profile<div class="ripple-wrapper"></div></a></li>
-                                    
                                     <li><a href="signout" class="dropdown-item"><i class="md md-settings-power mr-2"></i> Logout</a></li>
                                 </ul>
                             </div>
 
                             <p class="text-muted m-0"></p>
                         </div>
-
                        
                     </div>
                 </nav>
@@ -78,13 +73,13 @@
                         <div class="pull-left">
                             <!--<img src="assets/images/users/avatar-1.jpg" alt="" class="thumb-md rounded-circle">-->
                         </div>
-                       <!-- <div class="user-info">
+                        <!--<div class="user-info">
                             <div class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {{$data->username}}
                                     </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="dashboard" class="dropdown-item"><i class="md md-face-unlock mr-2"></i> Profile<div class="ripple-wrapper"></div></a></li>
+                                    <li><a href="profile" class="dropdown-item"><i class="md md-face-unlock mr-2"></i> Profile<div class="ripple-wrapper"></div></a></li>
                                     
                                     <li><a href="signout" class="dropdown-item"><i class="md md-settings-power mr-2"></i> Logout</a></li>
                                 </ul>
@@ -100,11 +95,10 @@
                                 <a href="dashboard" class="waves-effect"><i class="md md-home"></i><span> Dashboard </span></a>
                             </li>
                             <li>
-                                <a href="organization" class="waves-effect"><i class="fa fa-building" aria-hidden="true"></i><span> Organizations </span></a>
+                                <a href="user" class="waves-effect"><i class="fa fa-users" aria-hidden="true"></i><span> Users</span></a>
                             </li>
-                            <li>
-                                <a href="contact" class="waves-effect"><i class="fa fa-users" aria-hidden="true"></i><span> Contacts </span></a>
-                            </li>
+                            
+
                         <ul>
 
                         <div class="clearfix"></div>
@@ -129,8 +123,7 @@
                                     <div class="bg-picture text-center" style="background-color:#fff">
                                         <div class=""></div>
                                         <div class="">
-                                           <img src="{{ asset('storage/images/'.$data->photo)}}" class="thumb-lg rounded-circle img-thumbnail" alt="">
-                                            <h3 class="text-black">{{$data->username}}</h3>
+                                            <h3 class="text-black">{{$data->name}}</h3>
                                         </div>
                                     </div>
                                     <!--/ meta -->
@@ -169,16 +162,11 @@
                                                         </div>
                                                         <div class="card-body">
                                                             <div class="about-info-p">
-                                                                <strong>First Name</strong>
+                                                                <strong>Name</strong>
                                                                 <br>
-                                                                <p class="text-muted">{{$data->username}}</p>
+                                                                <p class="text-muted">{{$data->name}}</p>
                                                             </div>
-                                                            <div class="about-info-p">
-                                                                <strong>Last Name</strong>
-                                                                <br>
-                                                                <p class="text-muted">{{$data->lastname}}</p>
-                                                            </div>
-                                                            
+                                                    
                                                             <div class="about-info-p">
                                                                 <strong>Email</strong>
                                                                 <br>
@@ -189,8 +177,16 @@
                                                                 <br>
                                                                 <p class="text-muted">{{$data->dob}}</p>
                                                             </div>
-                                                            <a href="{{ route('profile.edit',['id' => $data->id]) }}" class="btn btn-purple waves-effect waves-light">Edit</a>
-                                            <a href="" class="btn btn-danger waves-effect waves-light" data-href="" data-toggle="modal" data-target="#confirm-delete">Delete</a>
+                                                            <div class="about-info-p">
+                                                                <strong>Qualification</strong>
+                                                                <br>
+                                                                <p class="text-muted">{{$data->qualification}}</p>
+                                                            </div>
+                                                            <div class="about-info-p">
+                                                                <strong>Location</strong>
+                                                                <br>
+                                                                <p class="text-muted">{{$data->location}}</p>
+                                                            </div>
                                                           
                                                         </div>
                                                     </div>
@@ -226,7 +222,7 @@
                     <!-- content -->
 
                     <footer class="footer text-right">
-                      &copy; ping
+                      &copy; Web Castle
                     </footer>
 
                 </div>

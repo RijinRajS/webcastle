@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>Ping || Add Organization</title>
+        <title>WebCastle || Edit User</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -31,7 +31,7 @@
                 <!-- LOGO -->
                 <div class="topbar-left">
                     <div class="text-center">
-                        <a href="#" class="logo"><i class="md md-message"></i> <span>Ping </span></a>
+                    <a href="#" class="logo"></i> <span>Web Castle </span></a>
                     </div>
                 </div>
                 <!-- Button mobile view to collapse sidebar menu -->
@@ -46,23 +46,20 @@
                             </li>
                             
                         </ul>
-
                         <div class="user-info">
                             <div class="dropdown">
-                            <img src="{{ asset('storage/images/'.$data->photo)}}" class="thumb-md rounded-circle" alt="">
 
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#fff;margin-right:75px">
-                                {{$data->username}}
+                                {{$detail->name}}
                                     </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="profile" class="dropdown-item"><i class="md md-face-unlock mr-2"></i> Profile<div class="ripple-wrapper"></div></a></li>
-                                    
+                                <ul class="dropdown-menu">                                    
                                     <li><a href="signout" class="dropdown-item"><i class="md md-settings-power mr-2"></i> Logout</a></li>
                                 </ul>
                             </div>
 
                             <p class="text-muted m-0"></p>
                         </div>
+                       
                     </div>
                 </nav>
             </div>
@@ -79,7 +76,7 @@
                         <!--<div class="user-info">
                             <div class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{$data->username}}
+                                {{$detail->username}}
                                     </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="dashboard" class="dropdown-item"><i class="md md-face-unlock mr-2"></i> Profile<div class="ripple-wrapper"></div></a></li>
@@ -98,12 +95,8 @@
                                 <a href="dashboard" class="waves-effect"><i class="md md-home"></i><span> Dashboard </span></a>
                             </li>
                             <li>
-                                <a href="organization" class="waves-effect"><i class="fa fa-building" aria-hidden="true"></i><span> Organizations </span></a>
+                                <a href="user" class="waves-effect"><i class="fa fa-users" aria-hidden="true"></i><span> Users </span></a>
                             </li>
-                            <li>
-                                <a href="contact" class="waves-effect"><i class="fa fa-users" aria-hidden="true"></i><span> Contacts </span></a>
-                            </li>
-
                         <ul>
 
                         <div class="clearfix"></div>
@@ -125,12 +118,8 @@
                         <!-- Page-Title -->
                         <div class="row">
                             <div class="col-sm-12">
-                                <h4 class="pull-left page-title">Create Organization</h4>
-                                <ol class="breadcrumb pull-right">
-                                    <li><a href="dashboard">{{$data->username}}</a></li>
-                                    <li><a href="organization">Organization</a></li>
-                                    <li class="active">Create</li>
-                                </ol>
+                                <h4 class="pull-left page-title">Update User</h4>
+                               
                             </div>
                         </div>
 
@@ -140,61 +129,39 @@
                             <div class="col-xl-12">
                                 <div class="card">
                                     <div class="card-body">
-                                    <form action="{{route('Add-organization')}}" method="POST">
+                                    <form action="{{route('update-user')}}" method="POST">
+                                        <table style="width:100%">
+                                        <input type="hidden" name="id" value="{{$data->id}}"/>
                 @csrf
-                <table style="width:100%">
-                                           <td> <div class="form-group">
-                                                <label for="exampleInputEmail1">Name</label>
-                                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" value="{{old('name')}}" style="width:90%">
+                                           <tr><td> <div class="form-group">
+                                                <label for="exampleInputEmail1">Name </label>
+                                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" value="{{$data->name}}" style="width:90%">
+                                                
                                                 <span style="color:red">@error('name'){{$message}} @enderror</span>
                                             </div></td>
-                                           <td> <div class="form-group">
-                                                <label for="exampleInputPassword1">Email</label>
-                                                <input type="text" class="form-control" id="email" name="email" placeholder="email" value="{{old('email')}}" style="width:90%">
-                                                <span style="color:red">@error('email'){{$message}} @enderror</span>
-                                            </div></td></tr>
-                                          <tr>
-                                               <td> <div class="form-group">
-                                                <label for="exampleInputPassword1">Phone</label>
-                                                <input type="text" class="form-control" id="phone" name="phone" placeholder="phone number" value="{{old('phone')}}" style="width:90%">
-                                                <span style="color:red">@error('phone'){{$message}} @enderror</span>
-                                            </div></td>
                                             <td><div class="form-group">
-                                                <label for="exampleInputPassword1">Address</label>
-                                                <input type="text" class="form-control" id="address" name="address" placeholder="address" value="{{old('address')}}" style="width:90%">
-                                                <span style="color:red">@error('address'){{$message}} @enderror</span>
+                                                <label for="exampleInputPassword1">Email</label>
+                                                <input type="text" class="form-control" id="email" name="email" placeholder="email" value="{{$data->email}}" style="width:90%">
+                                                <span style="color:red">@error('email'){{$message}} @enderror</span>
                                             </div></td></tr>
                                             <tr>
                                                 <td><div class="form-group">
-                                                <label for="exampleInputPassword1">City</label>
-                                                <input type="text" class="form-control" id="city" name="city" placeholder="city" value="{{old('city')}}" style="width:90%">
-                                                <span style="color:red">@error('city'){{$message}} @enderror</span>
-                                            </div></td>
-                                           <td> <div class="form-group">
-                                                <label for="exampleInputPassword1">Province/State</label>
-                                                <input type="text" class="form-control" id="state" name="state" placeholder="state" value="{{old('state')}}" style="width:90%">
-                                                <span style="color:red">@error('state'){{$message}} @enderror</span>
+                                                <label for="exampleInputPassword1">Mobile</label>
+                                               <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Mobile number" value="{{$data->mobile}}" style="width:90%">
+                                                <span style="color:red">@error('mobile'){{$message}} @enderror</span>
                                             </div></td></tr>
-                                            <tr>
-
-                                            <td><div class="form-group">
-                                                <label for="exampleInputPassword1">Country</label>
-                                                <input type="text" class="form-control" id="country" name="country" placeholder="country" value="{{old('country')}}" style="width:90%">
-                                                <span style="color:red">@error('country'){{$message}} @enderror</span>
-                                            </div></td>
-                                           <td> <div class="form-group">
-                                                <label for="exampleInputPassword1">Postal Code</label>
-                                                <input type="text" class="form-control" id="postalcode" name="postalcode" placeholder="postal code" value="{{old('postalcode')}}" style="width:90%">
-                                                <span style="color:red">@error('postalcode'){{$message}} @enderror</span>
-                                            </div></td></tr></table>
                                             
-                                            <button type="submit" class="btn btn-purple waves-effect waves-light">Create</button>
+                                           
+                                            </table>
+                                            
+                                            <button type="submit" class="btn btn-purple waves-effect waves-light">update</button>
+
                                         </form>
                                     </div><!-- card-body -->
                                 </div> <!-- card -->
                             </div> <!-- col-->
                             <footer class="footer text-right">
-                      &copy; ping
+                      &copy; Web Castle
                     </footer>
                             <!-- Horizontal form -->
                             

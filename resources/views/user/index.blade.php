@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>Ping || Organizations</title>
+        <title>WebCastle || Users</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -31,7 +31,7 @@
                 <!-- LOGO -->
                 <div class="topbar-left">
                     <div class="text-center">
-                        <a href="#" class="logo"><i class="md md-message"></i> <span>Ping </span></a>
+                    <a href="#" class="logo"></i> <span>Web Castle </span></a>
                     </div>
                 </div>
                 <!-- Button mobile view to collapse sidebar menu -->
@@ -48,14 +48,11 @@
                         </ul>
                         <div class="user-info">
                             <div class="dropdown">
-                            <img src="{{ asset('storage/images/'.$detail->photo)}}" class="thumb-md rounded-circle" alt="">
 
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#fff;margin-right:75px">
-                                {{$detail->username}}
+                                {{$detail->name}}
                                     </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="profile" class="dropdown-item"><i class="md md-face-unlock mr-2"></i> Profile<div class="ripple-wrapper"></div></a></li>
-                                    
+                                <ul class="dropdown-menu">                                    
                                     <li><a href="signout" class="dropdown-item"><i class="md md-settings-power mr-2"></i> Logout</a></li>
                                 </ul>
                             </div>
@@ -99,11 +96,9 @@
                                 <a href="dashboard" class="waves-effect"><i class="md md-home"></i><span> Dashboard </span></a>
                             </li>
                             <li>
-                                <a href="organization" class="waves-effect"><i class="fa fa-building" aria-hidden="true"></i><span> Organizations </span></a>
+                                <a href="user" class="waves-effect"><i class="fa fa-users" aria-hidden="true"></i><span> Users </span></a>
                             </li>
-                            <li>
-                                <a href="contact" class="waves-effect"><i class="fa fa-users" aria-hidden="true"></i><span> Contacts </span></a>
-                            </li>
+            
 
                         <ul>
 
@@ -126,11 +121,11 @@
                         <!-- Page-Title -->
                         <div class="row">
                             <div class="col-sm-12">
-                                <h4 class="pull-left page-title">Organizations</h4>
+                                <h4 class="pull-left page-title">Users</h4>
                                 <ol class="breadcrumb pull-right">
-                                    <li><a href="dashboard">{{$detail->username}}</a></li>
+                                    <li><a href="dashboard">{{$detail->name}}</a></li>
                                     <li><a href="dashboard">Dashboard</a></li>
-                                    <li class="active">Organizations</li>
+                                    <li class="active">Users</li>
                                 </ol>
                             </div>
                         </div>
@@ -140,7 +135,7 @@
                                 <div class="row">
                                     <div class="col-sm-6" >
                                         <div class="m-b-30" >
-                                            <a href="createorganization" id="addToTable" class="btn btn-success waves-effect waves-light">Create Organization <i class="mdi mdi-plus-circle-outline"></i></a>
+                                            <a href="createuser" id="addToTable" class="btn btn-success waves-effect waves-light">Add Users <i class="mdi mdi-plus-circle-outline"></i></a>
                                             @if(Session::has('success'))
                 <h4 style="color:green">{{Session::get('success')}}</h4>
                 @endif
@@ -155,20 +150,20 @@
                                     <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>City</th>
-                                        <th>Phone Number</th>
+                                        <th>Email</th>
+                                        <th>Mobile </th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($organisations as $organisation)
+                                    @foreach($users as $user)
                                     <tr class="gradeX">
-                                        <td>{{$organisation['name']}}</td>
-                                        <td>{{$organisation['city']}}
+                                        <td>{{$user['name']}}</td>
+                                        <td>{{$user['email']}}
                                         </td>
-                                        <td>{{$organisation['phonenumber']}}</td>
+                                        <td>{{$user['mobile']}}</td>
                                         <td class="actions">
-                                           &nbsp;&nbsp;&nbsp; <a href="{{ route('organisation.show',['id' => $organisation->id]) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Show"><i class="fa fa-eye"></i></a>
+                                           &nbsp;&nbsp;&nbsp; <a href="{{ route('user.show',['id' => $user->id]) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Show"><i class="fa fa-eye"></i></a>
                                         </td>
                                     </tr>
                                     
@@ -178,7 +173,7 @@
                                 </table>
                              
                                    
-                                        {{$organisations->links()}}
+                                        {{$users->links()}}
                                     
                                 
                                     
@@ -198,7 +193,7 @@
                 </div> <!-- content -->
 
                 <footer class="footer text-right">
-                      &copy; ping
+                      &copy; Web Castle
                     </footer>
 
             </div>

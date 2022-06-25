@@ -2,7 +2,7 @@
 <html lang="en" style="background-color:#007bff">
     <head>
         <meta charset="utf-8" />
-        <title>Ping ||User Register</title>
+        <title>WebCastle ||Admin Register</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -26,7 +26,7 @@
             <div class="card card-pages">
                 <div class="card-header bg-img"> 
                     <div class="bg-overlay" style="background-color:#007bff"></div>
-                    <h3 class="text-center m-t-10 text-white"><i class="md md-message"></i><strong>Ping</strong> </h3>
+                    <h3 class="text-center m-t-10 text-white"><i class="md md-message"></i><strong>Web Castle</strong> </h3>
                 </div> 
 
 
@@ -82,7 +82,7 @@
 
                     <div class="form-group row m-t-30">
                         <div class="col-sm-7">
-                            <a href="userlogin"><i class="fa fa-user m-r-5"></i> Already Registered? Log In</a>
+                            <!-- <a href="userlogin"><i class="fa fa-user m-r-5"></i> Already Registered? Log In</a> -->
                         </div>
                         
                     </div>

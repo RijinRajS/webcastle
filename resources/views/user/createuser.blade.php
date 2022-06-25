@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>Ping || View Contact</title>
+        <title>WebCastle || Add User</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -17,36 +17,10 @@
         <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
 
         <script src="assets/js/modernizr.min.js"></script>
-<style>
-    p{
-        color:black;
-    }
-    </style>
+
     </head>
 
     <body class="fixed-left">
-    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
-                </div>
-            
-                <div class="modal-body">
-                    <p>You are about to delete one organization, this procedure is irreversible.</p>
-                    <p>Do you want to proceed?</p>
-                    <p class="debug-url"></p>
-                </div>
-                
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-danger btn-ok">Delete</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
         <!-- Begin page -->
         <div id="wrapper">
@@ -57,7 +31,7 @@
                 <!-- LOGO -->
                 <div class="topbar-left">
                     <div class="text-center">
-                        <a href="#" class="logo"><i class="md md-message"></i> <span>Ping </span></a>
+                    <a href="#" class="logo"></i> <span>Web Castle </span></a>
                     </div>
                 </div>
                 <!-- Button mobile view to collapse sidebar menu -->
@@ -75,14 +49,11 @@
 
                         <div class="user-info">
                             <div class="dropdown">
-                            <img src="{{ asset('storage/images/'.$detail->photo)}}" class="thumb-md rounded-circle" alt="">
 
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#fff;margin-right:75px">
-                                {{$detail->username}}
+                                {{$data->name}}
                                     </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="profile" class="dropdown-item"><i class="md md-face-unlock mr-2"></i> Profile<div class="ripple-wrapper"></div></a></li>
-                                    
+                                <ul class="dropdown-menu">                                    
                                     <li><a href="signout" class="dropdown-item"><i class="md md-settings-power mr-2"></i> Logout</a></li>
                                 </ul>
                             </div>
@@ -102,10 +73,10 @@
                         <div class="pull-left">
                             <!--<img src="assets/images/users/avatar-1.jpg" alt="" class="thumb-md rounded-circle">-->
                         </div>
-                       <!-- <div class="user-info">
+                        <!--<div class="user-info">
                             <div class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{$detail->username}}
+                                {{$data->username}}
                                     </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="dashboard" class="dropdown-item"><i class="md md-face-unlock mr-2"></i> Profile<div class="ripple-wrapper"></div></a></li>
@@ -124,11 +95,9 @@
                                 <a href="dashboard" class="waves-effect"><i class="md md-home"></i><span> Dashboard </span></a>
                             </li>
                             <li>
-                                <a href="organization" class="waves-effect"><i class="fa fa-building" aria-hidden="true"></i><span> Organizations </span></a>
+                                <a href="user" class="waves-effect"><i class="fa fa-users" aria-hidden="true"></i><span> Users </span></a>
                             </li>
-                            <li>
-                                <a href="contact" class="waves-effect"><i class="fa fa-users" aria-hidden="true"></i><span> Contacts </span></a>
-                            </li>
+                            
                         <ul>
 
                         <div class="clearfix"></div>
@@ -150,11 +119,11 @@
                         <!-- Page-Title -->
                         <div class="row">
                             <div class="col-sm-12">
-                                <h4 class="pull-left page-title">View Contact</h4>
+                                <h4 class="pull-left page-title">Add User</h4>
                                 <ol class="breadcrumb pull-right">
-                                    <li><a href="dashboard">{{$detail->username}}</a></li>
-                                    <li><a href="organization">Organization</a></li>
-                                    <li class="active">View Contact</li>
+                                    <li><a href="dashboard">{{$data->name}}</a></li>
+                                    <li><a href="user">Users</a></li>
+                                    <li class="active">Create</li>
                                 </ol>
                             </div>
                         </div>
@@ -165,51 +134,37 @@
                             <div class="col-xl-12">
                                 <div class="card">
                                     <div class="card-body">
-                                    <form action="" method="">
-                                    <input type="hidden" name="id" value="{{$data->id}}"/>
-                                    <table style="width:100%">
+                                    <form action="{{route('Add-user')}}" method="POST">
                 @csrf
-                                       <tr>
-                                           <td>     <div class="form-group">
-                                                <label for="exampleInputEmail1">First name : </label> <p>{{$data->firstname}}</p>
-                                                
+                <table style="width:100%">
+                                           <td> <div class="form-group">
+                                                <label for="exampleInputEmail1">Name</label>
+                                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" value="{{old('name')}}" style="width:90%">
+                                                <span style="color:red">@error('name'){{$message}} @enderror</span>
                                             </div></td>
                                            <td> <div class="form-group">
-                                                <label for="exampleInputPassword1">Last name :</label><p>{{$data->lastname}}</p>
+                                                <label for="exampleInputPassword1">Email</label>
+                                                <input type="text" class="form-control" id="email" name="email" placeholder="email" value="{{old('email')}}" style="width:90%">
+                                                <span style="color:red">@error('email'){{$message}} @enderror</span>
                                             </div></td></tr>
-                                            <tr>
-                                            <td><div class="form-group">
-                                                <label for="exampleInputPassword1">Organization id :</label><p>{{$data->organisation_id}}</p>
+                                          <tr>
+                                               <td> <div class="form-group">
+                                                <label for="exampleInputPassword1">Mobile</label>
+                                                <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Mobile number" value="{{old('mobile')}}" style="width:90%">
+                                                <span style="color:red">@error('mobile'){{$message}} @enderror</span>
                                             </div></td>
-                                            <td><div class="form-group">
-                                                <label for="exampleInputPassword1">Email :</label> <p>{{$data->email}}</p>
-                                            </div></td></tr>
-                                            <tr>
-                                            <td><div class="form-group">
-                                                <label for="exampleInputPassword1">Phone number :</label> <p>{{$data->phone}}</p>
-                                            </div></td>
-                                            <td><div class="form-group">
-                                                <label for="exampleInputPassword1">Address:</label><p>{{$data->address}}</p>
-                                            </div></td></tr>
-                                            <tr>
-                                            <td><div class="form-group">
-                                                <label for="exampleInputPassword1">City :</label> <p>{{$data->city}}</p>
-                                            </div></td>
-                                            <td><div class="form-group">
-                                                <label for="exampleInputPassword1">Province/State :</label> <p>{{$data->state}}</p>
-                                            </div></td></tr></table>
-
+                                            </tr>
+                                            
+                                           </table>
+                                            
+                                            <button type="submit" class="btn btn-purple waves-effect waves-light">Create</button>
                                         </form>
                                     </div><!-- card-body -->
                                 </div> <!-- card -->
-                                
-                               
                             </div> <!-- col-->
-            
                             <footer class="footer text-right">
-                      &copy; ping
+                      &copy; Web Castle
                     </footer>
-                            
                             <!-- Horizontal form -->
                             
         <!-- END wrapper -->
@@ -231,12 +186,6 @@
         <script src="assets/js/jquery.scrollTo.min.js"></script>
 
         <script src="assets/js/jquery.app.js"></script>
-	<script> 
-        $('#confirm-delete').on('show.bs.modal', function(e) {
-            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-            
-            $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
-        });
-    </script>
+	
 	</body>
 </html>
