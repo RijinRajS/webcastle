@@ -65,7 +65,6 @@
 
                     <div class="form-group row m-t-30">
                         <div class="col-sm-7">
-                            <!-- <a href="userregister"><i class="fa fa-user m-r-5"></i> New user? Register here</a> -->
                         </div>
                         
                     </div>

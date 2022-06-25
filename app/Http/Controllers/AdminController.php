@@ -14,33 +14,9 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-    //
-//     public function registeruser(Request $req)
-//     {
-//         $req->validate(
-//             ['username'=>'required',
-//             'email'=>'required|email|unique:members',
-//             'password' => 'min:6|required',
-// 'confirmpassword' => 'min:6|required_with:confirmpassword|same:password',
+
         
-//         'dob'=>'required'
-//         ]);
-//         $member=new Member();
-//         $member->username=$req->username;
-//         $member->email=$req->email;
-//         $member->password=Hash::make($req->password);
-//         $member->dob=$req->dob;
-        
-//         $res=$member->save();
-//         if($res)
-//         {
-//             return back()->with('success','You have successfully registered');
-//         }
-//         else{
-//             return back()->with('fail','Something wrong');
-//         }
-        
-//     }
+
     public function loginuser(Request $req)
     {
         $req->validate(

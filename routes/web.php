@@ -22,11 +22,8 @@ Route::get('/', function () {
 Route::get('/userlogin', function () {
     return view('userlogin');
 });
-Route::get('/userregister', function () {
-    return view('userregister');
-});
 
-Route::post("/register-user",[AdminController::class,'registeruser'])->name('register-user');
+
 Route::post("login-user",[AdminController::class,'loginuser'])->name('login-user');
 Route::get("/dashboard",[AdminController::class,'dashboard']);
 Route::get("/signout",[AdminController::class,'signout']);
